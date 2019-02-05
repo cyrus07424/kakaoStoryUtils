@@ -1,4 +1,4 @@
-/drivers/
-/downloads/
-/phantomjsdriver.log
-/target/
+target/
+drivers/
+downloads/
+phantomjsdriver.log
