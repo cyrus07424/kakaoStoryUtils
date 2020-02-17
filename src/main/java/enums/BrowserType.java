@@ -6,5 +6,5 @@ package enums;
  * @author cyrus
  */
 public enum BrowserType {
-	PHANTOMJS, FIREFOX, CHROME;
+	PHANTOMJS, FIREFOX, WATERFOX, CHROME, EDGE, INTERNET_EXPLORER;
 }

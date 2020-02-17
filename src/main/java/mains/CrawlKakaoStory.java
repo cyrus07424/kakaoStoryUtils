@@ -1,5 +1,6 @@
 package mains;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,7 +49,13 @@ public class CrawlKakaoStory {
 				login();
 			} else if (Configurations.USE_KAKAOSTORY_LOGIN_COOKIE) {
 				webDriver.get("https://story.kakao.com/");
+				SeleniumHelper.waitForBrowserToLoadCompletely(webDriver);
 				loggedIn = true;
+			}
+
+			// ログイン失敗の場合は終了
+			if (!loggedIn) {
+				throw new RuntimeException("login failed");
 			}
 
 			// タイムラインをクロール
@@ -76,17 +83,19 @@ public class CrawlKakaoStory {
 
 		// ログイン画面を表示
 		webDriver.get("https://accounts.kakao.com/login/kakaostory");
+		SeleniumHelper.waitForBrowserToLoadCompletely(webDriver);
 
 		// ログイン情報を入力
-		WebElement loginEmail = webDriver.findElement(By.id("loginEmail"));
-		WebElement loginPw = webDriver.findElement(By.id("loginPw"));
+		WebElement loginEmail = webDriver.findElement(By.id("id_email_2"));
+		WebElement loginPw = webDriver.findElement(By.id("id_password_3"));
 		loginEmail.sendKeys(Configurations.KAKAO_STORY_EMAIL);
 		loginPw.sendKeys(Configurations.KAKAO_STORY_PASSWORD);
 
-		// ログインボタンをクリック
-		webDriver.findElement(By.cssSelector("#login-form button[type='submit']")).click();
-
 		// TODO captcha認証
+
+		// ログインボタンをクリック
+		webDriver.findElement(By.cssSelector("#login-form button.submit")).click();
+		SeleniumHelper.waitForBrowserToLoadCompletely(webDriver);
 
 		if (StringUtils.equals(webDriver.getCurrentUrl(), "https://story.kakao.com/")) {
 			loggedIn = true;
@@ -103,6 +112,7 @@ public class CrawlKakaoStory {
 
 		// ユーザーのタイムラインを表示
 		webDriver.get("https://story.kakao.com/" + username);
+		SeleniumHelper.waitForBrowserToLoadCompletely(webDriver);
 
 		// 処理済みモデル一覧
 		Set<String> processedModel = new HashSet<>();
@@ -165,18 +175,12 @@ public class CrawlKakaoStory {
 	private static Set<String> getTargetUsernameSet() {
 		Set<String> usernameSet = new HashSet<>();
 		if (Configurations.USE_TARGET_USESRNAME_ARRAY != null && 0 < Configurations.USE_TARGET_USESRNAME_ARRAY.length) {
-			for (String username : Configurations.USE_TARGET_USESRNAME_ARRAY) {
-				usernameSet.add(username);
-			}
+			usernameSet.addAll(Arrays.asList(Configurations.USE_TARGET_USESRNAME_ARRAY));
 		} else {
-			if (loggedIn) {
-				List<WebElement> friendWebElementList = webDriver
-						.findElements(By.cssSelector(".tabcont_friend ul.list_myfriend > li"));
-				for (WebElement friendWebElement : friendWebElementList) {
-					usernameSet.add(friendWebElement.getAttribute("data-model"));
-				}
-			} else {
-				// FIXME
+			List<WebElement> friendWebElementList = webDriver
+					.findElements(By.cssSelector(".tabcont_friend ul.list_myfriend > li"));
+			for (WebElement friendWebElement : friendWebElementList) {
+				usernameSet.add(friendWebElement.getAttribute("data-model"));
 			}
 		}
 		return usernameSet;

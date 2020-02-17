@@ -14,27 +14,37 @@ public interface Configurations {
 	/**
 	 * PhantomJSの実行ファイルのパス.
 	 */
-	String PHANTOMJS_EXECUTABLE_PATH = "./drivers/phantomjs.exe";
+	String PHANTOMJS_EXECUTABLE_PATH = "./drivers/phantomjs-windows-64bit.exe";
 
 	/**
 	 * GeckoDriverの実行ファイルのパス.
 	 */
-	String GECKO_DRIVER_EXECUTABLE_PATH = "./drivers/geckodriver.exe";
+	String GECKO_DRIVER_EXECUTABLE_PATH = "./drivers/geckodriver-windows-64bit.exe";
 
 	/**
 	 * ChromeDriverの実行ファイルのパス.
 	 */
-	String CHROME_DRIVER_EXECUTABLE_PATH = "./drivers/chromedriver.exe";
+	String CHROME_DRIVER_EXECUTABLE_PATH = "./drivers/chromedriver-windows-32bit.exe";
+
+	/**
+	 * EdgeDriverの実行ファイルのパス.
+	 */
+	String EDGE_DRIVER_EXECUTABLE_PATH = "./drivers/edgedriver-windows-64bit.exe";
+
+	/**
+	 * WaterFoxの実行ファイルのパス.
+	 */
+	String WATER_FOX_EXECUTABLE_PATH = "C:\\Program Files\\Waterfox Classic\\waterfox.exe";
 
 	/**
 	 * 使用するブラウザの種類.
 	 */
-	BrowserType USE_BROWSER_TYPE = BrowserType.PHANTOMJS;
+	BrowserType USE_BROWSER_TYPE = BrowserType.CHROME;
 
 	/**
-	 * ヘッドレスモードを使用するかどうか.
+	 * ブラウザをヘッドレスモードで使用するか.
 	 */
-	boolean USE_HEADLESS_MODE = true;
+	boolean USE_HEADLESS_MODE = false;
 
 	/**
 	 * 使用するユーザーエージェント.
@@ -44,17 +54,19 @@ public interface Configurations {
 	/**
 	 * カカオストーリーのメールアドレス.
 	 */
+	@Deprecated
 	String KAKAO_STORY_EMAIL = "";
 
 	/**
 	 * カカオストーリーのパスワード.
 	 */
+	@Deprecated
 	String KAKAO_STORY_PASSWORD = "";
 
 	/**
 	 * カカオストーリーのログイン機能を使用するかどうか.
 	 */
-	boolean USE_KAKAOSTORY_LOGIN = false;
+	boolean USE_KAKAOSTORY_LOGIN = true;
 
 	/**
 	 * カカオストーリーのログイン済みクッキー情報を使用するかどうか.
