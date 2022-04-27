@@ -1,8 +1,8 @@
 package utils;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,7 +21,6 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import constants.Configurations;
-import enums.BrowserType;
 
 /**
  * Seleniumヘルパー.
@@ -52,18 +51,13 @@ public class SeleniumHelper {
 				driver = new ChromeDriver(chromeOptions);
 				break;
 			}
-			case FIREFOX:
-			case WATERFOX: {
+			case FIREFOX: {
 				System.setProperty(GeckoDriverService.GECKO_DRIVER_EXE_PROPERTY,
 						Configurations.GECKO_DRIVER_EXECUTABLE_PATH);
 				FirefoxProfile firefoxProfile = new FirefoxProfile();
 				FirefoxOptions firefoxOptions = new FirefoxOptions();
 				firefoxOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
 				firefoxOptions.setProfile(firefoxProfile);
-				if (Configurations.USE_BROWSER_TYPE == BrowserType.WATERFOX) {
-					System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "false");
-					firefoxOptions.setBinary(Configurations.WATER_FOX_EXECUTABLE_PATH);
-				}
 				driver = new FirefoxDriver(firefoxOptions);
 				break;
 			}
@@ -85,7 +79,7 @@ public class SeleniumHelper {
 		}
 
 		// タイムアウトを設定
-		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 
 		// クッキーを設定
 		if (Configurations.USE_KAKAOSTORY_LOGIN_COOKIE) {
