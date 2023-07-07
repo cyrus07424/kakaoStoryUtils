@@ -37,45 +37,44 @@ public class SeleniumHelper {
 	public static WebDriver getWebDriver() {
 		WebDriver driver = null;
 		switch (Configurations.USE_BROWSER_TYPE) {
-			case CHROME: {
-				System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY,
-						Configurations.CHROME_DRIVER_EXECUTABLE_PATH);
-				ChromeOptions chromeOptions = new ChromeOptions();
-				chromeOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
-				chromeOptions.addArguments("--disable-dev-shm-usage");
-				chromeOptions.addArguments("--no-sandbox");
-				chromeOptions.addArguments("--user-agent=" + Configurations.USE_UA);
-				Map<String, Object> chromePrefs = new HashMap<>();
-				chromePrefs.put("download.prompt_for_download", false);
-				chromeOptions.setExperimentalOption("prefs", chromePrefs);
-				driver = new ChromeDriver(chromeOptions);
-				break;
-			}
-			case FIREFOX: {
-				System.setProperty(GeckoDriverService.GECKO_DRIVER_EXE_PROPERTY,
-						Configurations.GECKO_DRIVER_EXECUTABLE_PATH);
-				FirefoxProfile firefoxProfile = new FirefoxProfile();
-				FirefoxOptions firefoxOptions = new FirefoxOptions();
-				firefoxOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
-				firefoxOptions.setProfile(firefoxProfile);
-				driver = new FirefoxDriver(firefoxOptions);
-				break;
-			}
-			case EDGE: {
-				System.setProperty(EdgeDriverService.EDGE_DRIVER_EXE_PROPERTY,
-						Configurations.EDGE_DRIVER_EXECUTABLE_PATH);
-				driver = new EdgeDriver();
-				break;
-			}
-			default: {
-				DesiredCapabilities capabilities = new DesiredCapabilities();
-				capabilities.setCapability(
-						PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-						Configurations.PHANTOMJS_EXECUTABLE_PATH);
-				capabilities.setJavascriptEnabled(true);
-				driver = new PhantomJSDriver(capabilities);
-				break;
-			}
+		case CHROME: {
+			System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY,
+					Configurations.CHROME_DRIVER_EXECUTABLE_PATH);
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
+			chromeOptions.addArguments("--disable-dev-shm-usage");
+			chromeOptions.addArguments("--no-sandbox");
+			chromeOptions.addArguments("--user-agent=" + Configurations.USE_UA);
+			Map<String, Object> chromePrefs = new HashMap<>();
+			chromePrefs.put("download.prompt_for_download", false);
+			chromeOptions.setExperimentalOption("prefs", chromePrefs);
+			driver = new ChromeDriver(chromeOptions);
+			break;
+		}
+		case FIREFOX: {
+			System.setProperty(GeckoDriverService.GECKO_DRIVER_EXE_PROPERTY,
+					Configurations.GECKO_DRIVER_EXECUTABLE_PATH);
+			FirefoxProfile firefoxProfile = new FirefoxProfile();
+			FirefoxOptions firefoxOptions = new FirefoxOptions();
+			firefoxOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
+			firefoxOptions.setProfile(firefoxProfile);
+			driver = new FirefoxDriver(firefoxOptions);
+			break;
+		}
+		case EDGE: {
+			System.setProperty(EdgeDriverService.EDGE_DRIVER_EXE_PROPERTY,
+					Configurations.EDGE_DRIVER_EXECUTABLE_PATH);
+			driver = new EdgeDriver();
+			break;
+		}
+		default: {
+			DesiredCapabilities capabilities = new DesiredCapabilities();
+			capabilities.setCapability(
+					PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+					Configurations.PHANTOMJS_EXECUTABLE_PATH);
+			driver = new PhantomJSDriver(capabilities);
+			break;
+		}
 		}
 
 		// タイムアウトを設定
