@@ -41,7 +41,9 @@ public class SeleniumHelper {
 			System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY,
 					Configurations.CHROME_DRIVER_EXECUTABLE_PATH);
 			ChromeOptions chromeOptions = new ChromeOptions();
-			chromeOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
+			if (Configurations.USE_HEADLESS_MODE) {
+				chromeOptions.addArguments("--headless=new");
+			}
 			chromeOptions.addArguments("--disable-dev-shm-usage");
 			chromeOptions.addArguments("--no-sandbox");
 			chromeOptions.addArguments("--user-agent=" + Configurations.USE_UA);
@@ -56,7 +58,9 @@ public class SeleniumHelper {
 					Configurations.GECKO_DRIVER_EXECUTABLE_PATH);
 			FirefoxProfile firefoxProfile = new FirefoxProfile();
 			FirefoxOptions firefoxOptions = new FirefoxOptions();
-			firefoxOptions.setHeadless(Configurations.USE_HEADLESS_MODE);
+			if (Configurations.USE_HEADLESS_MODE) {
+				// TODO
+			}
 			firefoxOptions.setProfile(firefoxProfile);
 			driver = new FirefoxDriver(firefoxOptions);
 			break;

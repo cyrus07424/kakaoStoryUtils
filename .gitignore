@@ -1,4 +1,7 @@
-target/
-drivers/
-downloads/
-phantomjsdriver.log
+/.project
+/.classpath
+/.settings/
+/target/
+/drivers/
+/downloads/
+/phantomjsdriver.log
