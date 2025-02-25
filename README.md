@@ -1,5 +1,4 @@
-Kakao Story Downloader
-=========================
+# Kakao Story Utilities
 
 ## Run
 
