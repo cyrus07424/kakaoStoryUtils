@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -97,7 +97,7 @@ public class CrawlKakaoStory {
 		webDriver.findElement(By.cssSelector("#login-form button.submit")).click();
 		SeleniumHelper.waitForBrowserToLoadCompletely(webDriver);
 
-		if (StringUtils.equals(webDriver.getCurrentUrl(), "https://story.kakao.com/")) {
+		if (Strings.CS.equals(webDriver.getCurrentUrl(), "https://story.kakao.com/")) {
 			loggedIn = true;
 		}
 	}
